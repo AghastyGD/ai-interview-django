@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.conf import settings
 
 
 class Chat(models.Model):
@@ -15,6 +16,16 @@ class Chat(models.Model):
         if not self.uuid:
             self.uuid = uuid.uuid4()
             self.title = f"Chat {self.job.title} - {self.uuid}"
+            super().save(*args, **kwargs)
+            initial_prompt = settings.INITIAL_PROMPT_TEMPLATE 
+            initial_prompt = initial_prompt.replace("{job_title}", self.job.title)
+            initial_prompt = initial_prompt.replace("{job_requirementes}", self.job.requirements)
+            initial_prompt = initial_prompt.replace("{job_responsibilities}", self.job.responsibilities)
+            Message.objects.create(
+                chat=self,
+                role="system",
+                content=initial_prompt
+            ) 
         super().save(*args, **kwargs)
 
 
