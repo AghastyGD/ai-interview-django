@@ -12,7 +12,7 @@ class Chat(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        if self.uuid:
+        if not self.uuid:
             self.uuid = uuid.uuid4()
             self.title = f"Chat {self.job.title} - {self.uuid}"
         super().save(*args, **kwargs)
