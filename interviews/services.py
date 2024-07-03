@@ -17,7 +17,7 @@ class OpenAiService:
         }
         response = requests.post(
             f"{self.__open_ai_base_url}/chat/completions",
-            json=payload
+            json=payload,
             headers=headers
         )
         body = response.json()
