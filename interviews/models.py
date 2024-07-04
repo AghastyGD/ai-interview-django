@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.conf import settings
+from .services import OpenAiService
 
 
 class Chat(models.Model):
@@ -43,6 +44,18 @@ class Message(models.Model):
     
     def __str__(self):
         return f"{self.role} - {self.chat.title}"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk and self.title != "assistant" and not self.chat.completed:
+            super().save(*args, **kwargs)
+            service = OpenAiService()
+            Message.objects.create(
+                chat=self.chat,
+                role="assistant",
+                content=service.get_chat_completion(self.chat.message.all())
+            )
+        else:
+            super().save(*args, **kwargs)
     
     
     
