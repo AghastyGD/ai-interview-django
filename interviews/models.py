@@ -1,8 +1,7 @@
 import uuid
 from django.db import models
 from django.conf import settings
-from .services import OpenAiService
-
+from .services import GeminiAiService
 
 class Chat(models.Model):
     uuid = models.UUIDField(primary_key=True, editable=False)
@@ -24,7 +23,7 @@ class Chat(models.Model):
             initial_prompt = initial_prompt.replace("{job_responsibilities}", self.job.responsibilities)
             Message.objects.create(
                 chat=self,
-                role="system",
+                role="user",
                 content=initial_prompt
             ) 
         super().save(*args, **kwargs)
@@ -32,13 +31,12 @@ class Chat(models.Model):
 
 class Message(models.Model):
     ROLE_CHOICES = (
-        ("system", "Sistema"),
         ("user", "Candidato"),
-        ("assistant", "Entrevistador")
+        ("model", "Entrevistador")
     )
     
     chat = models.ForeignKey("interviews.Chat", on_delete=models.CASCADE, related_name="messages")
-    role = models.CharField(max_length=9, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -46,13 +44,13 @@ class Message(models.Model):
         return f"{self.role} - {self.chat.title}"
     
     def save(self, *args, **kwargs):
-        if not self.pk and self.title != "assistant" and not self.chat.completed:
+        if not self.pk and self.role != "model" and not self.chat.completed:
             super().save(*args, **kwargs)
-            service = OpenAiService()
+            service = GeminiAiService()
             Message.objects.create(
                 chat=self.chat,
-                role="assistant",
-                content=service.get_chat_completion(self.chat.message.all())
+                role="model",
+                content=service.get_chat_completion(self.chat.messages.all())
             )
         else:
             super().save(*args, **kwargs)

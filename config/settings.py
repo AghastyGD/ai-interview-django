@@ -125,7 +125,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GPT_MODEL = config("GPT_MODEL")
-OPEN_AI_API_KEY = config("OPEN_AI_API_KEY")
-OPEN_AI_BASE_URL = config("OPEN_AI_BASE_URL")
+GEMINI_API_KEY= config("GEMINI_API_KEY")
+GEMINI_AI_BASE_URL = config("GEMINI_AI_BASE_URL")
 INITIAL_PROMPT_TEMPLATE = config("INITIAL_PROMPT_TEMPLATE").replace(r"\n", "\n")

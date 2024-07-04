@@ -1,31 +1,41 @@
-from django.conf import settings
 import requests
+from django.conf import settings
 
-class OpenAiService:
+class GeminiAiService:
     def __init__(self):
-        self.__model = settings.GPT_MODEL
-        self.__open_ai_api_key = settings.OPEN_AI_API_KEY
-        self.__open_ai_base_url = settings.OPEN_AI_BASE_URL
-        
+        self.__gemini_api_key = settings.GEMINI_API_KEY
+        self.__gemini_ai_base_url = settings.GEMINI_AI_BASE_URL
+
     def get_chat_completion(self, messages):
         payload = {
-            "model": self.__model,
-            "messages": [self.__convert_to_chat_message_format(message) for message in messages]
+            "contents": [
+                {
+                    "role": message.role,
+                    "parts": [
+                        {"text": message.content}
+                    ]
+                } for message in messages
+            ]
         }
-        headers = {
-            "Authorization": f"Bearer {self.__open_ai_api_key}"
-        }
+        headers = {'Content-Type': 'application/json',
+                   'x-goog-api-key': f'{self.__gemini_api_key}'}
+        
         response = requests.post(
-            f"{self.__open_ai_base_url}/chat/completions",
+            self.__gemini_ai_base_url,
             json=payload,
-            headers=headers
+            headers=headers,
         )
-        body = response.json()
-        return body["choices"][0]["message"]["content"]
-        
-    def __convert_to_chat_message_format(self, message):
-        return {
-            "role": message.role,
-            "content": message.content
-        }
-        
+
+        if response.status_code == 200:
+            response_data = response.json()
+
+            if "candidates" in response_data:
+                if response_data['candidates'][0]['content']['role'] == 'model':
+                    return response_data['candidates'][0]['content']['parts'][0]['text']
+                else:
+                    raise Exception("A role da resposta não é 'model'.")
+            else:
+                raise Exception("A chave 'candidates' não foi encontrada na resposta.")
+
+        else:
+            raise Exception("Erro ao enviar prompt para a API: {}".format(response.status_code))
