@@ -16,7 +16,7 @@
         </div>
     {% endfor %}
 
-    <form action="" method="POST">
+    <form action="{% url 'interviews:create_message' chat_uuid=chat.uuid %}" method="POST">
         {% csrf_token %}
         <div class="form-floating mb-2">
             <textarea
