@@ -18,6 +18,12 @@ class Job(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def requirements_list(self):
+        return self.requirements.split("\n")
+    
+    def responsibilities_list(self):
+        return self.responsibilities.split("\n")
 
 
 class Skill(models.Model):
