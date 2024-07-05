@@ -26,11 +26,14 @@
                 class="form-control"
                 placeholder="Coloque aqui a sua resposta"
                 id="answer"
-                name="answer">
+                name="answer"
+                {% if chat.completed %}disabled{% endif %}
+                >
+                
             </textarea>
             <label for="answer">Resposta</label>
         </div>
-        <button type="submit" class="btn btn-primary mb-4">Enviar</button>
+        <button type="submit" class="btn btn-primary mb-4" {% if chat.completed %}disabled{% endif %}>Enviar</button>
     </form>
 
 {% endblock content %}
