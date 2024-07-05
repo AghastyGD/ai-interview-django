@@ -3,4 +3,32 @@
 {% block content %}
     <h1>{{ page_title }}</h1>
 
+    {% for message in chat.messages.all %}
+        <div class="card mb-3">
+            <div class="card-header d-flex">
+                {{ message.get_role_display }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    {{ message.content|linebreaksbr }}
+                </p>
+            </div> 
+        </div>
+    {% endfor %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-floating mb-2">
+            <textarea
+                autofocus style="height: 150px;"
+                class="form-control"
+                placeholder="Coloque aqui a sua resposta"
+                id="answer"
+                name="answer">
+            </textarea>
+            <label for="answer">Resposta</label>
+        </div>
+        <button type="submit" class="btn btn-primary mb-4">Enviar</button>
+    </form>
+
 {% endblock content %}
