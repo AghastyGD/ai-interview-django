@@ -25,8 +25,9 @@ class Chat(models.Model):
                 chat=self,
                 role="user",
                 content=initial_prompt
-            ) 
-        super().save(*args, **kwargs)
+            )
+        else: 
+            super().save(*args, **kwargs)
 
 
 class Message(models.Model):
