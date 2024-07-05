@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+{% load custom_filters %}
+
 {% block content %}
     <h1>{{ page_title }}</h1>
 
-    {% for message in chat.messages.all %}
+    {% for message in chat.messages.all|exclude_first %}
         <div class="card mb-3">
             <div class="card-header d-flex">
                 {{ message.get_role_display }}
