@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    .card-area {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+
+    .card {
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-body .links {
+        margin-top: auto;
+    }
+
+    .card h5 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+</style>
+{% endblock styles %}
+
+{% block content %}
+    <h1>{{ page_title }}</h1>
+        <div class="card-area mt-4 px-2">
+            {% for job in jobs %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-bolder">
+                        {{ job.title }}
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        {{job.get_level_display }}</h6>
+                    <p class="card-text">
+                        {% for skill in job.skills.all %}
+                        <span class="badge text-bg-primary">{{ skill.title }}</span>
+                        {% endfor %}
+                    </p>
+                    <div class="links">
+                        <a href class="mt-4">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock content %}
