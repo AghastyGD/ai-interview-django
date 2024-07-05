@@ -25,8 +25,10 @@
             <li>{{ responsibility }}</li>
         {% endfor %}
     </ul>
-
-    <a href="" class="btn btn-success">Simular Entrevista</a>
+    <form action="{% url 'interviews:create' job_pk=job.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Simular Entrevista</button>
+    </form>
 
 {% endblock content %}
 
