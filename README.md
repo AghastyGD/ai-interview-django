@@ -21,9 +21,9 @@ GEMINI_AI_BASE_URL = base url da gemini
 8. Inicie o servidor de desenvolvimento: `python manage.py runserver`.
 
 ## Como Funciona?
-Usando a rota `/admin`, você pode criar listas de vagas preenchendo o título, a descrição, os requisitos e as responsabilidades de cada vaga.
+Usando a rota `/admin`, você pode criar lista de vagas preenchendo o **título**, a **descrição**, os **requisitos** e as **responsabilidades** de cada vaga.
 
-Após criar a lista de vagas, acesse a rota `/jobs` para começar a simular entrevistas para a vaga de sua escolha. O frontend já possui um chat onde você vai interagir com a IA.
+Após adicionar essas vagas, acesse a rota `/jobs` para começar a simular entrevistas para a vaga de sua escolha. O frontend já possui um chat onde você vai interagir com a IA.
 
 <img src="./demo_images/01.png" width="400" height="350">
 
