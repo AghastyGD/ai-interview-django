@@ -16,9 +16,9 @@ ALLOWED_HOSTS: lista de domínios ou IPs permitidos para acessar o projeto
 GEMINI_API_KEY = sua api_key da gemini
 GEMINI_AI_BASE_URL = base url da gemini
 ```
-6. Execute as migrações: `python manage.py makemigrations`, `python manage.py migrate`.
-7. Crie um superusuário para acesso ao painel de administração: `python manage.py createsuperuser`.
-8. Inicie o servidor de desenvolvimento: `python manage.py runserver`.
+5. Execute as migrações: `python manage.py makemigrations`, `python manage.py migrate`.
+6. Crie um superusuário para acesso ao painel de administração: `python manage.py createsuperuser`.
+7. Inicie o servidor de desenvolvimento: `python manage.py runserver`.
 
 ## Como Funciona?
 Usando a rota `/admin`, você pode criar lista de vagas preenchendo o **título**, a **descrição**, os **requisitos** e as **responsabilidades** de cada vaga.
