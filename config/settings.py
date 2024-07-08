@@ -128,4 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GEMINI_API_KEY= config("GEMINI_API_KEY")
 GEMINI_AI_BASE_URL = config("GEMINI_AI_BASE_URL")
-INITIAL_PROMPT_TEMPLATE = config("INITIAL_PROMPT_TEMPLATE").replace(r"\n", "\n")
+INITIAL_PROMPT_TEMPLATE = "A partir de agora você  irá agir como um recrutador que está realizando uma entrevista com um candidato para uma vaga de {job_title}, para essa vaga são exigidos os seguintes requisitos:\n{job_requirementes}\nAlém disso, a vaga possui os seguintes pontos como principaisatividades:\n{job_responsibilities}\nVocê deve realizar uma única pergunta por vez e esperar a resposta do candidato para realizar apróxima pergunta."
