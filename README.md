@@ -14,7 +14,7 @@ SECRET_KEY = sua secret_key gerada
 DEBUG = true ou false
 ALLOWED_HOSTS: lista de domínios ou IPs permitidos para acessar o projeto
 GEMINI_API_KEY = sua api_key da gemini
-GEMINI_AI_BASE_URL** = base url da gemini
+GEMINI_AI_BASE_URL = base url da gemini
 ```
 6. Execute as migrações: `python manage.py makemigrations`, `python manage.py migrate`.
 7. Crie um superusuário para acesso ao painel de administração: `python manage.py createsuperuser`.
