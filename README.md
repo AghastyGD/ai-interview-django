@@ -23,7 +23,7 @@ Usando a rota /admin, você pode criar listas de vagas preenchendo o título, a 
 
 Após criar a lista de vagas, acesse a rota /jobs para começar a simular entrevistas para a vaga de sua escolha. O frontend já possui um chat onde você vai interagir com a IA.
 
-<img src="./demo_images/01.png" width="470" height="350">
+<img src="./demo_images/01.png" width="400" height="350">
 
 
 ## Contribuição
